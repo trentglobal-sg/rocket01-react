@@ -5,8 +5,28 @@ export default function App() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [duration, setDuration] = useState("");
+  const [countries, setCountries] = useState([]);
+
+  function handleCheckbox(e) {
+    // check if the checkbox is being checked
+    if (e.target.checked) {
+      const cloned = [...countries, e.target.value];
+      setCountries(cloned);
+    } else {
+      // we are unchecking, so remove from array
+      const indexToRemove = countries.findIndex((country)=>{
+        return country == e.target.value;
+      })
+      //  toSpliced will modify a copy of the array and return it
+      const cloned = countries.toSpliced(indexToRemove, 1);
+      setCountries(cloned);
+    }
+
+  }
+
 
   return <>
+
     <h1>Survey Form: Travel Destinations</h1>
     <div>
       <label>Name:</label>
@@ -37,15 +57,41 @@ export default function App() {
         onChange={(e) => {
           setDuration(e.target.value);
         }}
-        checked={duration==="one-to-two-week"}
+        checked={duration === "one-to-two-week"}
       /><label>One week to two weeks</label>
 
       <input type="radio" value="more-than-two-weeks" name="duration"
         onChange={(e) => {
           setDuration(e.target.value);
         }}
-        checked={duration==="more-than-two-weeks"}
+        checked={duration === "more-than-two-weeks"}
       /><label>More than two weeks</label>
     </div>
+    <div>
+      <label>Which destinations do you want to visit?</label>
+
+      <input type="checkbox" value="japan" name="country"
+        onChange={handleCheckbox}
+      />
+      <label>Japan</label>
+
+      <input type="checkbox" value="bali" name="country"
+        onChange={handleCheckbox}
+      />
+      <label>Bali</label>
+
+      <input type="checkbox" value="new-zealand" name="country"
+        onChange={handleCheckbox}
+      />
+      <label>New Zealand</label>
+
+      <input type="checkbox" value="others" name="country"
+        onChange={handleCheckbox}
+      />
+      <label>Others</label>
+
+    </div>
+
+
   </>
 }
