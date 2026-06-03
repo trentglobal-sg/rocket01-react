@@ -33,14 +33,14 @@ export default function App() {
     <ul>
       {
         fruits.map((fruit)=>{
-          return <li>{fruit}</li>
+          return <li key={fruit}>{fruit}</li>
         })
       }
     </ul>
 
     {
       food.map((food)=>{
-        return <div>
+        return <div key={food.name}>
           <h1>{food.name}</h1>
           <p>Calories: {food.calories}</p>
         </div>
